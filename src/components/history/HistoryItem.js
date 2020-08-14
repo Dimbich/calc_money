@@ -9,10 +9,10 @@ const getClassName = (isComing) => {
 const HistoryItem = ({description, amount, add}) => {
   return (
     <li  className={getClassName(add)}>{description}
-    <span className="history__money">{amount +' ₽'}</span>
-    <button className="history__delete">x</button>
-  </li>
+      <span className="history__money">{amount +' ₽'}</span>
+      <button className="history__delete">x</button>
+    </li>
   )
-  }
+}
   
 export default HistoryItem;
