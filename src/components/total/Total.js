@@ -6,8 +6,8 @@ const getTotal = (transactions) => {
     let total = 0
 
     if (transactions.length) {
-      income = transactions.reduce((sum, item) =>  sum + (item.add ? +item.amount : 0), 0)
-      expense = transactions.reduce((sum, item) => sum + (item.add ? 0 : +item.amount), 0)
+      income = transactions.reduce((sum, item) =>  sum + (item.isIncome ? +item.amount : 0), 0)
+      expense = transactions.reduce((sum, item) => sum + (item.isIncome ? 0 : +item.amount), 0)
       total = income - expense
     }
 
