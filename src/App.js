@@ -5,7 +5,7 @@ import Operations from './components/operations/Operations';
 
 class App extends Component {
   state = {
-    transactions: [],
+    transactions: JSON.parse(localStorage.getItem('transactions')) || [],
     description: '',
     amount: ''    
   }
@@ -25,7 +25,7 @@ class App extends Component {
         transactions,
         description: '',
         amount: ''
-      }
+      }, this.saveToLocalStorage
     );
   }
 
@@ -37,8 +37,14 @@ class App extends Component {
     this.setState({description: e.target.value}) 
  }
 
+ saveToLocalStorage = () => {
+    localStorage.setItem('transactions', JSON.stringify(this.state.transactions))
+ }
+
+ deleteTransaction = id => this.setState({transactions: this.state.transactions.filter(item => item.id != id)})
+
   render() {
-    const {addTransaction, addAmount, addDescription, state:{transactions, description, amount}} = this
+    const {addTransaction, addAmount, addDescription, deleteTransaction, state:{transactions, description, amount}} = this
     return (
       <>
         <header>
@@ -48,8 +54,11 @@ class App extends Component {
   
         <main>
             <div className="container">
-                <Total/>
-                <History transactions = {transactions}/>
+                <Total transactions = {transactions}/>
+                <History 
+                  transactions = {transactions}
+                  deleteTransaction = {deleteTransaction}
+                />
                 <Operations 
                   addTransaction = {addTransaction}
                   addAmount = {addAmount}

@@ -6,11 +6,11 @@ const getClassName = (isComing) => {
   return `${mainClass} ${additionalClass}`
 };
 
-const HistoryItem = ({description, amount, add}) => {
+const HistoryItem = ({id, description, amount, add, deleteTransaction}) => {
   return (
     <li  className={getClassName(add)}>{description}
       <span className="history__money">{amount +' ₽'}</span>
-      <button className="history__delete">x</button>
+      <button onClick = {() =>{deleteTransaction(id)}} className="history__delete">x</button>
     </li>
   )
 }
