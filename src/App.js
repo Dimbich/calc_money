@@ -5,37 +5,20 @@ import Operations from './components/operations/Operations';
 
 class MyCalc extends Component {
   state = {
-    transactions: JSON.parse(localStorage.getItem('transactions')) || [],
-    description: '',
-    amount: ''    
+    transactions: JSON.parse(localStorage.getItem('transactions')) || []   
   }
 
-  addTransaction = isIncome => {
+  addTransaction = (description, amount, isIncome) => {
     const transactions = [...this.state.transactions]
-    const {description, amount} = this.state;
     transactions.push({
-        id: `cmr${(+new Date).toString(16)}`,
+        id: `cmr${(+new Date()).toString(16)}`,
         description,
         amount,
         isIncome
     })
 
-    this.setState(
-      {
-        transactions,
-        description: '',
-        amount: ''
-      }, this.saveToLocalStorage
-    );
+    this.setState({transactions}, this.saveToLocalStorage);
   }
-
-  addAmount = e => {
-     this.setState({amount: e.target.value}, ()=> this.state) 
-  }
-
-  addDescription = e => {
-    this.setState({description: e.target.value}) 
- }
 
  saveToLocalStorage = () => {
     localStorage.setItem('transactions', JSON.stringify(this.state.transactions))
@@ -43,7 +26,7 @@ class MyCalc extends Component {
 
  deleteTransaction = id => {
    this.setState(
-     {transactions: this.state.transactions.filter(item => item.id != id)},
+     {transactions: this.state.transactions.filter(item => item.id !== id)},
      this.saveToLocalStorage
    )
  }
